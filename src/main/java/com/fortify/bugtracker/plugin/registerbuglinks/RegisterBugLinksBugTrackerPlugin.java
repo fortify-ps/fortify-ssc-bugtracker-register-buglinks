@@ -41,10 +41,11 @@ import com.fortify.pub.bugtracker.support.UserAuthenticationStore;
 
 @BugTrackerPluginImplementation
 public class RegisterBugLinksBugTrackerPlugin extends AbstractBatchBugTrackerPlugin {
+	private static final String LINK_IDENTIFIER = "existingBugLink"; // We use this bugparam id for backward compatibility with 'Add Existing Bugs' 
 
 	public List<BugParam> getBatchBugParameters(UserAuthenticationStore paramUserAuthenticationStore) {
 		BugParam bp = new BugParamText();
-		bp.setIdentifier("link");
+		bp.setIdentifier(LINK_IDENTIFIER);
 		bp.setDisplayLabel("Link");
 		bp.setRequired(true);
 		return Arrays.asList(bp);
@@ -55,7 +56,7 @@ public class RegisterBugLinksBugTrackerPlugin extends AbstractBatchBugTrackerPlu
 	}
 
 	public Bug fileMultiIssueBug(MultiIssueBugSubmission paramMultiIssueBugSubmission, UserAuthenticationStore paramUserAuthenticationStore) {
-		String link = paramMultiIssueBugSubmission.getParams().get("link");
+		String link = paramMultiIssueBugSubmission.getParams().get(LINK_IDENTIFIER);
 		return new Bug(link, "");
 	}
 
@@ -84,7 +85,7 @@ public class RegisterBugLinksBugTrackerPlugin extends AbstractBatchBugTrackerPlu
 	}
 
 	public Bug fileBug(BugSubmission paramBugSubmission, UserAuthenticationStore paramUserAuthenticationStore) {
-		String link = paramBugSubmission.getParams().get("link");
+		String link = paramBugSubmission.getParams().get(LINK_IDENTIFIER);
 		return new Bug(link, "");
 	}
 
