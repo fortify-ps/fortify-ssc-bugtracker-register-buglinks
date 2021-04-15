@@ -35,7 +35,7 @@ This is mainly useful in the following situations:
 
 ### Warning
 
-Enabling this plugin will allow users to add arbitrary, potentially malicious bug links in SSC. As a non-harmful example, try entering `javascript:alert('You have been hacked')` as a bug link, and then clicking the `View Bug` button. You should make sure that only trusted users have the `Submit Bugs` permission.
+Enabling this plugin will allow users to add arbitrary, potentially malicious bug links in SSC. As a non-harmful example, try entering `javascript:alert('You have been hacked')` as a bug link, and then clicking the `View Bug` button. You should make sure that only trusted users have the `Submit Bugs` permission. Please see [Issue #3](https://github.com/fortify-ps/fortify-ssc-bugtracker-register-buglinks/issues/3) for a feature request that allows for a more secure deployment of this plugin; please leave a comment there if you would be interested in such a feature.
 
 ### Related Links
 
