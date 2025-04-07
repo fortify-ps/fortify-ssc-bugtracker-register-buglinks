@@ -1,8 +1,16 @@
+buildscript {
+    configurations.all {
+        resolutionStrategy.dependencySubstitution {
+            substitute module("com.overzealous:remark:1.1.0") using module("com.wavefront:remark:2023-07.07") because "not available on maven central anymore"
+        }
+    }
+}
+
 plugins {
-  id "io.freefair.lombok" version "5.3.0"
-  id 'com.github.jk1.dependency-license-report' version '1.16'
-  id "org.kordamp.gradle.markdown" version "2.2.0"
-  id "biz.aQute.bnd.builder" version "5.3.0"
+  id 'io.freefair.lombok' version '8.13.1'
+  id 'com.github.jk1.dependency-license-report' version '2.9'
+  id 'org.kordamp.gradle.markdown' version '2.2.0'
+  id 'biz.aQute.bnd.builder' version '7.1.0'
 }
 
 group 'com.fortify.ssc.bugtracker.register-buglinks'
@@ -13,7 +21,7 @@ ext.getVersion = {
 version = ext.getVersion();
 
 ext {
-	gradleHelpersLocation = "https://raw.githubusercontent.com/fortify-ps/gradle-helpers/1.5"
+	gradleHelpersLocation = "https://raw.githubusercontent.com/fortify/shared-gradle-helpers/1.8"
 }
 
 apply from: "${gradleHelpersLocation}/repo-helper.gradle"
@@ -21,15 +29,16 @@ apply from: "${gradleHelpersLocation}/junit-helper.gradle"
 apply from: "${gradleHelpersLocation}/thirdparty-helper.gradle"
 apply from: "${gradleHelpersLocation}/readme2html.gradle"
 
-apply plugin: 'java'
-sourceCompatibility = 1.8
+//apply plugin: 'java'
+sourceCompatibility = 17
 
 dependencies {
-    compile fileTree(dir: 'lib')
+    compileOnly fileTree(dir: 'lib')
 }
 
 jar {
-  bnd (
+  bundle { 
+    bnd (
     'Bundle-Name': 'Register Bug Links',
     'Bundle-Vendor': 'Micro Focus Fortify',
 	'Bundle-ActivationPolicy': 'lazy',
@@ -43,6 +52,7 @@ jar {
     'Import-Package': '!*',   // ..suppress the bndTools default import generation
     'Export-Package': 'com.fortify.bugtracker.register_buglinks'
     )
+  } 
 }
 
 task dist(type: Zip) {
