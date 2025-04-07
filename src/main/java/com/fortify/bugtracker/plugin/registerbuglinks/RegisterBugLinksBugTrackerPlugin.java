@@ -98,7 +98,13 @@ public class RegisterBugLinksBugTrackerPlugin extends AbstractBatchBugTrackerPlu
 	}
 
 	public List<BugTrackerConfig> getConfiguration() {
-		return Arrays.asList(new BugTrackerConfig[]{});
+	    var dummy = new BugTrackerConfig()
+	        .setIdentifier("dummy")
+	        .setDisplayLabel("Dummy")
+	        .setDescription("Dummy configuration property to bypass SSC 24.4 bug")
+	        .setRequired(false)
+	        .setValue("dummy");
+		return Arrays.asList(new BugTrackerConfig[]{dummy});
 	}
 
 	public String getLongDisplayName() {
